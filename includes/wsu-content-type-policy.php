@@ -132,7 +132,7 @@ class WSU_Content_Type_Policy {
 		
 		$text = isset( $postmeta ) ? esc_attr( $postmeta ) : ''; 
 		$_note = __('Policy reference number');
-		$_input = $parent_policy_num.(!empty($parents)?'.':'').'<input type="text" id="wsu_policy_number" class="policy-form-input" name="wsu_policy_number" value="'.$text.'" /><p>'.$_note.'</p>';
+		$_input = esc_html( $parent_policy_num . ( ! empty( $parents ) ? '.' : '' ) ) . '<input type="text" id="wsu_policy_number" class="policy-form-input" name="wsu_policy_number" value="'.$text.'" /><p>'.$_note.'</p>';
 		echo $_input;
 	}
 
