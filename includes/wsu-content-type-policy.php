@@ -18,10 +18,14 @@ class WSU_Content_Type_Policy {
 	var $post_type_slug = 'policy';
 
 	/**
+	 * @var string The URL slug used for policy archives.
+	 */
+	var $post_type_archive = 'policies';
+
+	/**
 	 * @var string The general name used for the post type.
 	 */
 	var $post_type_name = 'Policies And Procedures';
-
 
 	/**
 	 * Set up the hooks used by WSU_Content_Type_Policy
