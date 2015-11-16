@@ -332,9 +332,8 @@ class WSU_Content_Type_Policy {
 			}
 		}
 		$number = get_post_meta( $post_id, '_wsu_policy_number', true );
-		echo $parent_policy_num.(!empty($parents)?'.':'').esc_html( $number );
+		echo esc_html( $parent_policy_num . ( ! empty( $parents ) ? '.' : '' ) . $number );
 	}
-
 
 	function my_sortable_policy_column( $columns ) {
 		$columns['policy_number'] = '_wsu_policy_number';
