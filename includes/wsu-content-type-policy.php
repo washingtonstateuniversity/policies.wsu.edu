@@ -5,8 +5,6 @@
  * Class WSU_Content_Type_Policy
  */
 class WSU_Content_Type_Policy {
-
-
 	/**
 	 * @var string The slug to register the policy post type under.
 	 */
@@ -52,8 +50,6 @@ class WSU_Content_Type_Policy {
 		add_filter( 'manage_edit-' . $this->post_type . '_sortable_columns', array( $this, 'my_sortable_policy_column' ) );
 
 	}
-
-
 
 	/**
 	 * Register the Policy post type for the WSU News system.
@@ -252,7 +248,6 @@ class WSU_Content_Type_Policy {
 
 	}
 
-
 	/**
 	 * Modify the WSU Policies post type archive title to properly show date information.
 	 *
@@ -363,12 +358,6 @@ class WSU_Content_Type_Policy {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
 	/**
 	 * Handle output for the policy dates column in the policy list table.
 	 *
@@ -410,9 +399,6 @@ class WSU_Content_Type_Policy {
 		return site_url( $this->post_type_archive . '/' . $year . '/' . $month . '/' );
 	}
 
-	
-	
-	
 	public function save_meta( $post_id, $post ) {
 		if ( isset( $_POST['wsu_policy_number'] ) ) {
 			if ( empty( trim( $_POST['wsu_policy_number'] ) ) ) {
