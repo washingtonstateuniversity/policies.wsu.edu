@@ -36,7 +36,7 @@ class WSU_Content_Type_Policy {
 		add_action( 'pre_get_posts', array( $this, 'modify_post_query' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_filter( 'post_row_actions', array( $this, 'policy_post_action_row' ), 10, 2);
-		add_action( 'save_post', array( $this, 'save_meta' ), 15, 2 );
+		add_action( 'save_post', array( $this, 'save_meta' ), 15 );
 		
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
@@ -398,7 +398,7 @@ class WSU_Content_Type_Policy {
 		return site_url( $this->post_type_archive . '/' . $year . '/' . $month . '/' );
 	}
 
-	public function save_meta( $post_id, $post ) {
+	public function save_meta( $post_id ) {
 		if ( isset( $_POST['wsu_policy_number'] ) ) {
 			if ( empty( trim( $_POST['wsu_policy_number'] ) ) ) {
 				delete_post_meta( $post_id, '_wsu_policy_number');
