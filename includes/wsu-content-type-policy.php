@@ -404,14 +404,14 @@ class WSU_Content_Type_Policy {
 			if ( empty( trim( $_POST['wsu_policy_number'] ) ) ) {
 				delete_post_meta( $post_id, '_wsu_policy_number');
 			} else {
-				update_post_meta( $post_id, '_wsu_policy_number', $_POST['wsu_policy_number'] );
+				update_post_meta( $post_id, '_wsu_policy_number', sanitize_text_field( $_POST['wsu_policy_number'] ) );
 			}
 		}
 		if ( isset( $_POST['wsu_policy_date'] ) ) {
 			if ( empty( trim( $_POST['wsu_policy_date'] ) ) ) {
 				delete_post_meta( $post_id, '_wsu_policy_date');
 			} else {
-				update_post_meta( $post_id, '_wsu_policy_date', $_POST['wsu_policy_date'] );
+				update_post_meta( $post_id, '_wsu_policy_date', sanitize_text_field( $_POST['wsu_policy_date'] ) );
 			}
 		}
 		return;
