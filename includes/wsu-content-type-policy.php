@@ -5,8 +5,6 @@
  * Class WSU_Content_Type_Policy
  */
 class WSU_Content_Type_Policy {
-
-
 	/**
 	 * @var string The slug to register the policy post type under.
 	 */
@@ -18,10 +16,14 @@ class WSU_Content_Type_Policy {
 	var $post_type_slug = 'policy';
 
 	/**
+	 * @var string The URL slug used for policy archives.
+	 */
+	var $post_type_archive = 'policies';
+
+	/**
 	 * @var string The general name used for the post type.
 	 */
 	var $post_type_name = 'Policies And Procedures';
-
 
 	/**
 	 * Set up the hooks used by WSU_Content_Type_Policy
@@ -34,7 +36,7 @@ class WSU_Content_Type_Policy {
 		add_action( 'pre_get_posts', array( $this, 'modify_post_query' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_filter( 'post_row_actions', array( $this, 'policy_post_action_row' ), 10, 2);
-		add_action( 'save_post', array( $this, 'save_meta' ), 15, 2 );
+		add_action( 'save_post', array( $this, 'save_meta' ), 15 );
 		
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
@@ -48,8 +50,6 @@ class WSU_Content_Type_Policy {
 		add_filter( 'manage_edit-' . $this->post_type . '_sortable_columns', array( $this, 'my_sortable_policy_column' ) );
 
 	}
-
-
 
 	/**
 	 * Register the Policy post type for the WSU News system.
@@ -107,7 +107,7 @@ class WSU_Content_Type_Policy {
 	public function enqueue_admin_scripts() {
 		if ( $this->post_type === get_current_screen()->id ) {
 			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_enqueue_style( 'jquery-ui-core', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css' );
+			wp_enqueue_style( 'jquery-ui-core', 'https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css' );
 			wp_enqueue_script( 'wsu-policy-maskedinput', get_stylesheet_directory_uri().'/js/jquery.maskedinput.js', array(), false, true );
 			wp_enqueue_script( 'wsu-policy-admin', get_stylesheet_directory_uri().'/js/policies-admin.js', array(), false, true );
 		}
@@ -132,7 +132,7 @@ class WSU_Content_Type_Policy {
 		
 		$text = isset( $postmeta ) ? esc_attr( $postmeta ) : ''; 
 		$_note = __('Policy reference number');
-		$_input = $parent_policy_num.(!empty($parents)?'.':'').'<input type="text" id="wsu_policy_number" class="policy-form-input" name="wsu_policy_number" value="'.$text.'" /><p>'.$_note.'</p>';
+		$_input = esc_html( $parent_policy_num . ( ! empty( $parents ) ? '.' : '' ) ) . '<input type="text" id="wsu_policy_number" class="policy-form-input" name="wsu_policy_number" value="'.$text.'" /><p>'.$_note.'</p>';
 		echo $_input;
 	}
 
@@ -248,7 +248,6 @@ class WSU_Content_Type_Policy {
 
 	}
 
-
 	/**
 	 * Modify the WSU Policies post type archive title to properly show date information.
 	 *
@@ -333,9 +332,8 @@ class WSU_Content_Type_Policy {
 			}
 		}
 		$number = get_post_meta( $post_id, '_wsu_policy_number', true );
-		echo $parent_policy_num.(!empty($parents)?'.':'').esc_html( $number );
+		echo esc_html( $parent_policy_num . ( ! empty( $parents ) ? '.' : '' ) . $number );
 	}
-
 
 	function my_sortable_policy_column( $columns ) {
 		$columns['policy_number'] = '_wsu_policy_number';
@@ -359,12 +357,6 @@ class WSU_Content_Type_Policy {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
 	/**
 	 * Handle output for the policy dates column in the policy list table.
 	 *
@@ -406,22 +398,19 @@ class WSU_Content_Type_Policy {
 		return site_url( $this->post_type_archive . '/' . $year . '/' . $month . '/' );
 	}
 
-	
-	
-	
-	public function save_meta( $post_id, $post ) {
+	public function save_meta( $post_id ) {
 		if ( isset( $_POST['wsu_policy_number'] ) ) {
 			if ( empty( trim( $_POST['wsu_policy_number'] ) ) ) {
 				delete_post_meta( $post_id, '_wsu_policy_number');
 			} else {
-				update_post_meta( $post_id, '_wsu_policy_number', $_POST['wsu_policy_number'] );
+				update_post_meta( $post_id, '_wsu_policy_number', sanitize_text_field( $_POST['wsu_policy_number'] ) );
 			}
 		}
 		if ( isset( $_POST['wsu_policy_date'] ) ) {
 			if ( empty( trim( $_POST['wsu_policy_date'] ) ) ) {
 				delete_post_meta( $post_id, '_wsu_policy_date');
 			} else {
-				update_post_meta( $post_id, '_wsu_policy_date', $_POST['wsu_policy_date'] );
+				update_post_meta( $post_id, '_wsu_policy_date', sanitize_text_field( $_POST['wsu_policy_date'] ) );
 			}
 		}
 		return;
