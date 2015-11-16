@@ -1,4 +1,4 @@
-WSU-GA-gauntlet
+Theme for policies.wsu.edu/prf
 ===============
 
-A theme that is for use with in the WSU GA test sites suite
+This theme includes post type `policies` meant for the PRF site.  There are also theme files for the pdf generation.  
