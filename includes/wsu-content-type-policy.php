@@ -107,7 +107,7 @@ class WSU_Content_Type_Policy {
 	public function enqueue_admin_scripts() {
 		if ( $this->post_type === get_current_screen()->id ) {
 			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_enqueue_style( 'jquery-ui-core', 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css' );
+			wp_enqueue_style( 'jquery-ui-core', 'https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css' );
 			wp_enqueue_script( 'wsu-policy-maskedinput', get_stylesheet_directory_uri().'/js/jquery.maskedinput.js', array(), false, true );
 			wp_enqueue_script( 'wsu-policy-admin', get_stylesheet_directory_uri().'/js/policies-admin.js', array(), false, true );
 		}
